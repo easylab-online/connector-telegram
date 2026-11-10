@@ -7,11 +7,8 @@ export async function createTdlibDriver() {
     const apiId = process.env.TDLIB_API_ID;
     const apiHash = process.env.TDLIB_API_HASH;
     if (!apiId || !apiHash) throw Error('TDLIB_API_ID and TDLIB_API_HASH required for tdjson driver');
-    const mod = await import('./tdjson-stub.js').catch(() => null);
-    if (!mod?.createTdjsonDriver) {
-      throw Error('tdjson driver not built — use TDLIB_DRIVER=mock or install TDLib bindings on VPS');
-    }
-    return mod.createTdjsonDriver({ apiId: Number(apiId), apiHash });
+    const { createTdjsonDriver } = await import('./tdjson-driver.js');
+    return createTdjsonDriver({ apiId: Number(apiId), apiHash: String(apiHash) });
   }
   return createMockTdlibDriver({
     mockOtp: process.env.MOCK_OTP,

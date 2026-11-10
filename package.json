@@ -10,5 +10,9 @@
     "start": "node --env-file=.env src/main.js",
     "test": "node --test",
     "check": "node --check src/main.js && node --check src/service.js"
+  },
+  "dependencies": {
+    "prebuilt-tdlib": "0.1008069.0",
+    "tdl": "^8.1.0"
   }
 }
