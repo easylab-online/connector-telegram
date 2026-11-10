@@ -1,0 +1,12 @@
+services:
+  connector-telegram:
+    image: ghcr.io/easylab-online/connector-telegram:pro
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "127.0.0.1:3095:3095"
+    volumes:
+      - tg_connector_data:/app/data
+volumes:
+  tg_connector_data:

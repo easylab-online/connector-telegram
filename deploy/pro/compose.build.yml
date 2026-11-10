@@ -1,0 +1,15 @@
+# Local smoke-test only. VPS uses mainServer/services/unified-inbox-telegram/compose.yml + GHCR image.
+services:
+  connector-telegram:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+    image: easylab-connector-telegram:local
+    env_file:
+      - .env.pro.example
+    ports:
+      - "127.0.0.1:3095:3095"
+    volumes:
+      - connector-data:/app/data
+volumes:
+  connector-data:

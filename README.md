@@ -8,4 +8,13 @@
 
 ## الحالة
 
-مستودع فارغ — التخطيط والقرار التقني (D-TG-02) قبل أي تنفيذ. المرجع: مدير مشروع Unified Inbox.
+POC: خدمة Node + TDLib mock (`TDLIB_DRIVER=mock`)؛ API جلسات + webhook HMAC إلى البوابة. الإنتاج: صورة `deploy/pro` مع `TDLIB_DRIVER=tdjson` على VPS.
+
+## تشغيل محلي
+
+```bash
+cp .env.example .env   # عدّل MASTER_KEY و WEBHOOK_* و CLIENTS_JSON
+npm start
+```
+
+مواصفة البوابة: `unified-inbox/backend/specs/connectors/telegram-user.md` · قرار **D-TG-02**.
