@@ -55,7 +55,12 @@ function listSessions(client) {
     .all(client.ownerId, `${client.ownerId}:%`)
     .map(s => {
       const live = svc.driver.getLive(s.id);
-      return { ...s, status: live?.status ?? 'stopped', linkedPhone: live?.linkedPhone ?? null };
+      return {
+        ...s,
+        status: live?.status ?? 'stopped',
+        linkedPhone: live?.linkedPhone ?? null,
+        linkedUserId: live?.linkedUserId ?? null,
+      };
     });
 }
 

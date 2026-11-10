@@ -26,7 +26,7 @@ ansible-playbook -i mainServer/inventory.yml mainServer/200-deploy.yml
 ansible-playbook -i mainServer/inventory.yml mainServer/services/unified-inbox-telegram/500-start.yml
 ```
 
-**قبل أول تشغيل:** `500-start.yml` يشغّل `499-bootstrap-env.yml` تلقائياً إن لم يوجد `.env` ثم يسحب الصورة من GHCR. بديل بدون GHCR: `498-build-image-local.yml` ثم start مع `compose_service_pull: missing`. (يولّد `MASTER_KEY` و`WEBHOOK_SECRET` و`token`). عدّل على السيرفر `TDLIB_API_ID` / `TDLIB_API_HASH` و`TDLIB_DRIVER=tdjson` قبل الربط الحي. أو أنشئ `.env` يدوياً من [`.env.pro.example`](./.env.pro.example).
+**قبل أول تشغيل:** انسخ [`.env.pro.example`](./.env.pro.example) إلى `infra/.../unified-inbox-telegram/.env`، عدّل القيم، ثم `200-deploy.yml` و`500-start.yml`.
 
 إيقاف:
 

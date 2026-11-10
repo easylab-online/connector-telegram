@@ -30,7 +30,7 @@ export function createMockTdlibDriver(options = {}) {
     async startSession(sessionId) {
       const s = ensure(sessionId);
       if (s.status === 'open') return s;
-      s.status = 'wait_phone';
+      s.status = 'wait_qr';
       s.qr = `${QR_TOKEN_PREFIX}${sessionId}`;
       s.qrAt = Date.now();
       return s;

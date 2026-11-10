@@ -261,8 +261,21 @@ export function createTdjsonDriver({ apiId, apiHash, dataRoot = './data/tdlib' }
     async confirmQr(sessionId) {
       const s = getSession(sessionId);
       if (!s?.client) throw Object.assign(Error('session_not_found'), { status: 404 });
+      const deadline = Date.now() + 20000;
+      while (
+        !['wait_phone', 'wait_qr', 'stopped'].includes(s.status) &&
+        s.status !== 'open' &&
+        Date.now() < deadline
+      ) {
+        await new Promise(r => setTimeout(r, 150));
+      }
+      if (s.status === 'open') return livePublic(s);
       await s.client.invoke({ _: 'requestQrCodeAuthentication', other_user_ids: [] });
       s.status = 'wait_qr';
+      const after = Date.now() + 15000;
+      while (!s.qr && Date.now() < after) {
+        await new Promise(r => setTimeout(r, 150));
+      }
       return livePublic(s);
     },
 
